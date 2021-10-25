@@ -1,47 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Image, Button } from 'react-native';
-import {LinearGradient} from 'expo-linear-gradient';
+import { StyleSheet, Text, View, Image, Button, TextInput } from 'react-native';
 class App extends Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      nome: ''
+    };
+    this.pegaNome = this.pegaNome.bind(this);
+  }
+
+  pegaNome(texto){
+    if(texto.length > 0){
+      this.setState({nome: 'Bem vindo '+texto});
+    }else{
+      this.setState({nome: ''});
+    }
+    
+  }
 
   render(){
 
     let img = 'https://sujeitoprogramador.com/steve.png';
     return(
-       <View style={{flex:1, backgroundColor:'#ddd', paddingTop:31}}>
+       <View style={styles.container}>
 
-        <View style={{height:60 , flexDirection:'row', backgroundColor: 'blue', padding:5}}>
-          <View style={{flex:1, backgroundColor: 'red',padding:2, justifyContent: 'center', alignItems: 'flex-start'}}>
-            <View style={{width:40, height:40, backgroundColor: 'blue', }}>
-            
-            </View>
-          </View>
-          <View style={{flex:7, backgroundColor: 'green', padding:2, justifyContent: 'center', alignItems: 'center'}}>
-            <View style={{width:250, height:40, backgroundColor: 'gray', }}>
-            
-            </View>
-          </View>
-          
-          <View style={{flex:1, backgroundColor: 'gray', padding:2, justifyContent: 'center', alignItems: 'flex-end'}}>
-            <View style={{width:40, height:40, backgroundColor: 'red', }}>
-            
-            </View>
-          </View>
-          
-          
-
-        </View>
-        <View style={{flex:1, backgroundColor: 'red'}}></View>
-        <View style={{height:60 , backgroundColor: 'green', flexDirection: 'row'}}>
-          <View style={{flex:1, borderColor: 'red', borderWidth:1}}></View>
-          <View style={{flex:1, borderColor: 'red', borderWidth:1}}></View>
-          <View style={{flex:1, borderColor: 'red', borderWidth:1}}></View>
-        </View>
-         
-
-
-
+        <TextInput 
+          style={styles.input}
+          placeholder='Digite seu nome'
+          onChangeText={this.pegaNome}
+         />
            
+        <Text style={styles.texto}>
+        {this.state.nome}
+
+        </Text>
        </View>
     );
   }
@@ -49,19 +41,24 @@ class App extends Component{
 
 
 const styles = StyleSheet.create({
-area:{
-  marginTop:40,
-  //backgroundColor: 'blue'
-  //alignItems:'center', 
-  //display: 'flex'
-},
-textoPrincipal:{
-  fontSize:25,
-  color: 'red'
-},
-alinhaTexto:{
-  textAlign: 'center'
-}
+  container:{
+    flex:1,
+    paddingTop:40
+  },
+  input:{
+    height:45,
+    borderWidth: 1,
+    borderColor: '#222',
+    margin: 10,
+    fontSize: 20,
+    padding: 10,
+  },
+  texto:{
+    textAlign: 'center',
+    fontSize: 25
+  }
+
+
 });
 
 
