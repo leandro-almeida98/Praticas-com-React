@@ -8,11 +8,16 @@ class App extends Component{
 
     let img = 'https://sujeitoprogramador.com/steve.png';
     return(
-       <View style={styles.area}>
-         <Text style={[styles.textoPrincipal, styles.alinhaTexto ] }>Eu sou texto 1</Text>
-         <Text style={styles.alinhaTexto  }>Eu sou texto 2</Text>
-         <Text style={styles.textoPrincipal}>Eu sou texto 3</Text>
-         <Text style={styles.textoPrincipal}>Eu sou texto 4</Text>
+       <View style={{flex:1, backgroundColor:'#ddd'}}>
+
+<View style={{height:65 , backgroundColor: 'blue'}}></View>
+         <View style={{flex:1, backgroundColor: 'red'}}></View>
+         <View style={{height:60 , backgroundColor: 'green'}}></View>
+         
+
+
+
+           
        </View>
     );
   }
