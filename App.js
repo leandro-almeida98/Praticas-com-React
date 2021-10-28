@@ -1,72 +1,95 @@
 import React, {Component} from 'react';
-import { StyleSheet, Text, View, Image, Button, TextInput, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
 class App extends Component{
   constructor(props){
     super(props);
     this.state = {
-      nome: '',
-      input: ''
-    };
-    
-    this.entrar = this.entrar.bind(this);
-  }
-
-  entrar(){
-    if(this.state.input === ''){
-      alert('Digite seu nome!');
-      this.setState({nome: ''});
-      return
+      isloading:false,
+      feed:[
+        { id: this.idAleatorio() , nome: 'Matheus', idade: this.idadeAleatoria(), email:'matheus@gmail.com' },
+        { id: this.idAleatorio() , nome: 'Leandro', idade: this.idadeAleatoria(), email:'leandro@gmail.com' },
+        { id: this.idAleatorio() , nome: 'Andre', idade: this.idadeAleatoria(), email:'andre@gmail.com' },
+        { id: this.idAleatorio() , nome: 'Reinaldo', idade: this.idadeAleatoria(), email:'reinaldo@gmail.com' },
+        { id: this.idAleatorio() , nome: 'Ulisses', idade: this.idadeAleatoria(), email:'ulisses@gmail.com' },
+        { id: this.idAleatorio() , nome: 'Alexandre', idade: this.idadeAleatoria(), email:'alexandre@gmail.com' }
+      ]        
     }
-    this.setState({nome: 'Bem vindo '+this.state.input});
+    this.refleshh = this.refleshh.bind(this);
   }
-
+ 
+refleshh(){
+  this.setState({
+    isloading: true
+  })
+  this.setState(previousState => ({
+    feed: [
+      { id: this.idAleatorio() , nome: 'Matheus2', idade: this.idadeAleatoria(), email:'matheus@gmail.com' },
+      { id: this.idAleatorio() , nome: 'Leandro2', idade: this.idadeAleatoria(), email:'leandro@gmail.com' },
+      { id: this.idAleatorio() , nome: 'Andre2', idade: this.idadeAleatoria(), email:'andre@gmail.com' },
+      { id: this.idAleatorio() , nome: 'Reinaldo2', idade: this.idadeAleatoria(), email:'reinaldo@gmail.com' },
+      { id: this.idAleatorio() , nome: 'Ulisses2', idade: this.idadeAleatoria(), email:'ulisses@gmail.com' },
+      { id: this.idAleatorio() , nome: 'Alexandre2', idade: this.idadeAleatoria(), email:'alexandre@gmail.com' },
+      ...previousState.feed
+    ]
+  }));
+  this.setState({
+    isloading: false
+  })
+}
+idadeAleatoria(){ 
+  return Math.floor((Math.random() * (99 - 18)) +18) ;
+}
+idAleatorio(){
+  return Math.floor((Math.random() * (99999 - 1)) +1) ;
+}
   render(){
-
-    let img = 'https://sujeitoprogramador.com/steve.png';
     return(
        <View style={styles.container}>
-         <ScrollView showsVerticalScrollIndicator={false} horizontal={true} snapToEnd={true} >
-          <View style={styles.box1}></View>
-          <View style={styles.box2}></View>
-          <View style={styles.box3}></View>
-          <View style={styles.box4}></View>
-         </ScrollView>
+          <View style={styles.header}>
+            <Text style={{fontSize:24, color:'white'}}>Flatlist + Refresh</Text>
+
+          </View>
+          <FlatList 
+            data={this.state.feed}
+
+            keyExtractor = {(item) => item.id}
+            refreshing={this.state.isloading}
+            onRefresh={this.refleshh}
+            renderItem={({item}) => <Pessoa data={item} /> }
+          />
        </View>
     );
   }
 }
-
+class Pessoa extends Component{
+  render(){
+    return(
+      <View style={styles.flatlist}>
+        <Text>ID:  {this.props.data.id} </Text>
+        <Text>Nome: {this.props.data.nome} </Text>
+        <Text>Idade:  {this.props.data.idade} </Text>
+        <Text>Email: {this.props.data.email} </Text>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    paddingTop:40
-  },
-  box1:{
-    backgroundColor: 'red',
-    height:250,
-    width:407
-    
-  },
-  box2:{
+  header:{
+    marginTop:30,
+    height:60, 
     backgroundColor: 'green',
-    height:250,
-    width:407
+    justifyContent:'center', 
+    alignItems:'center'
   },
-  box3:{
-    backgroundColor: 'blue',
-    height:250,
-    width:407
+  container:{
+    flex:1  
   },
-  box4:{
-    backgroundColor: 'gray',
-    height:250,
-    width:407
+  flatlist:{
+    height:100,
+    paddingLeft:20,
+    justifyContent: 'center'  
   }
-
-
 });
-
-
 
 export default App;
