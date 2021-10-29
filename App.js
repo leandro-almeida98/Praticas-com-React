@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList } from 'react-native';
+
+import Pessoa from './src/Pessoas'
 class App extends Component{
   constructor(props){
     super(props);
@@ -61,18 +63,7 @@ idAleatorio(){
     );
   }
 }
-class Pessoa extends Component{
-  render(){
-    return(
-      <View style={styles.flatlist}>
-        <Text>ID:  {this.props.data.id} </Text>
-        <Text>Nome: {this.props.data.nome} </Text>
-        <Text>Idade:  {this.props.data.idade} </Text>
-        <Text>Email: {this.props.data.email} </Text>
-      </View>
-    );
-  }
-}
+
 
 const styles = StyleSheet.create({
   header:{
@@ -84,11 +75,6 @@ const styles = StyleSheet.create({
   },
   container:{
     flex:1  
-  },
-  flatlist:{
-    height:100,
-    paddingLeft:20,
-    justifyContent: 'center'  
   }
 });
 
