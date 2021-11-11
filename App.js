@@ -1,30 +1,32 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Text, View, FlatList, Switch } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {NavigationContainer} from '@react-navigation/native'
-import Pessoa from './src/Pessoas'
-import Home from './src/Home'
 
 
 export default function App() {
 
   const Stack = createNativeStackNavigator();
+  const [status, setStatus] = useState();
+
+  
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen 
-          name = "Home"
-          component = {Home}
-          options = {{title: "Home"}}
-        />
-        <Stack.Screen 
-          name = "Pessoa"
-          component = {Pessoa}
-          options = {{title: "Pessoa"}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={styles.container}>
+
+      <Text>SWITCH ABAIXO</Text>
+      <Switch
+      // style={{ba}}
+        trackColor={{true: 'red', false: 'grey'}}
+        thumbColor={{true: 'blue', false: 'green'}}
+        value={status}
+        onValueChange={ (valorSwitch) => setStatus(valorSwitch)}
+
+      />
+      <Text>{(status)? "Ativo": "Inativo"}</Text>
+
+      
+
+    </View>
   );
 }
 
@@ -37,7 +39,8 @@ const styles = StyleSheet.create({
     alignItems:'center'
   },
   container:{
-    flex:1  
+    flex:1,
+    marginTop:30
   }
 });
 
