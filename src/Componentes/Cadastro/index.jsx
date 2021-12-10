@@ -1,19 +1,16 @@
 import React, {useState} from 'react'
 import {View,Text,TouchableOpacity, TextInput, StyleSheet} from 'react-native'
 import {connect} from 'react-redux'
-
+import {editLogin, editPswd} from '../Actions/AuthActions'
 export function Cadastro(props, {navigation}){
-    const[login, setLogin] = useState('')
-    const[pswd, setPswd] = useState('')
-
     function evtButton(){
         alert("Cadastrado")
     }
 
     return (
         <View style={styles.container}>
-           <TextInput value={login} onChangeText={(txt)=> setLogin(txt)} style={styles.txtinput} placeholder="Login" />
-           <TextInput value={pswd} onChangeText={(txt)=> setPswd(txt)} style={styles.txtinput} placeholder="Senha" />
+           <TextInput value={props.login} onChangeText={(txt)=> props.editLogin(txt)} style={styles.txtinput} placeholder="Login" />
+           <TextInput value={props.pswd} onChangeText={(txt)=> props.editPswd(txt)} style={styles.txtinput} placeholder="Senha" />
            <TouchableOpacity onPress={()=> evtButton()} style={styles.button} >
                 <Text style={styles.txt} >Cadastrar</Text>
             </TouchableOpacity>
@@ -56,6 +53,6 @@ const mapStateToProps = (state) =>{
     }
 }
 
-const CadastroConnect = connect(mapStateToProps)(Cadastro);
+const CadastroConnect = connect(mapStateToProps,{editLogin, editPswd})(Cadastro);
 
 export default CadastroConnect;
